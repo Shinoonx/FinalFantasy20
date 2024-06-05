@@ -5,7 +5,7 @@ public class Guerrero extends Personaje {
 
 	public Guerrero(String nombre) {
 		super(nombre, 150, 10, 13);
-		this.fuerza = 5;
+		this.fuerza = 8;
 	}
 
 	@Override

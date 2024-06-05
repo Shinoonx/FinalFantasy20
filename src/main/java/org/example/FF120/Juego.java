@@ -77,7 +77,6 @@ public class Juego {
 				}
 			}
 
-			// Imprimir la situación de la salud de ambos personajes
 			System.out.println(jugador.getNombre() + " tiene " + jugador.getVida() + " puntos de vida.");
 			System.out.println(enemigo.getNombre() + " tiene " + enemigo.getVida() + " puntos de vida.");
 

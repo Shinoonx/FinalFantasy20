@@ -4,7 +4,7 @@ public class Mago extends Personaje {
 	private int poderMagico;
 
 	public Mago(String nombre) {
-		super(nombre, 130, 15, 8); // Vida: 80, Ataque: 25, Defensa: 10
+		super(nombre, 130, 15, 8);
 		this.poderMagico = 8;
 	}
 
