@@ -32,27 +32,36 @@ public class Juego {
 		while (jugador.getVida() > 0 && enemigo.getVida() > 0) {
 			if (turno % 2 == 0) {
 				System.out.println("Turno de " + jugador.getNombre());
-				System.out.println("Elige una acción: 1. Atacar 2. Defenderse 3. Tomar poción");
-				int accion = scanner.nextInt();
-				scanner.nextLine(); // Limpiar el buffer del scanner
+				boolean accionValida = false;
+				while (!accionValida) {
+					System.out.println("Elige una acción: 1. Atacar 2. Defenderse 3. Tomar poción");
+					int accion = scanner.nextInt();
+					scanner.nextLine(); // Limpiar el buffer del scanner
 
-				switch (accion) {
-					case 1:
-						jugador.atacar(enemigo);
-						break;
-					case 2:
-						jugador.defender();
-						break;
-					case 3:
-						jugador.usarPocion();
-						break;
-					default:
-						System.out.println("Acción no válida, pierdes el turno.");
-						break;
+					switch (accion) {
+						case 1:
+							jugador.atacar(enemigo);
+							accionValida = true;
+							break;
+						case 2:
+							jugador.defender();
+							accionValida = true;
+							break;
+						case 3:
+							if (jugador.usarPocion()) {
+								System.out.println(jugador.getNombre() + " usó una poción y recuperó vida.");
+								accionValida = true;
+							} else {
+								System.out.println("No te quedan pociones.");
+							}
+							break;
+						default:
+							System.out.println("Acción no válida, intenta de nuevo.");
+							break;
+					}
 				}
 			} else {
 				System.out.println("Turno de " + enemigo.getNombre());
-				// Acción aleatoria para el enemigo
 				int accionEnemigo = rand.nextInt(3) + 1;
 
 				switch (accionEnemigo) {
@@ -93,7 +102,7 @@ public class Juego {
 		// Crear enemigo predefinido
 		Personaje enemigo = new Guerrero("Enemigo");
 		Arma armaEnemigo = new Arma("Espada", "fisico", 5);
-		Pocion pocionEnemigo = new Pocion("Poción de Salud", 30);
+		Pocion pocionEnemigo = new Pocion("Poción de Salud", 20);
 		enemigo.equiparArma(armaEnemigo);
 		enemigo.equiparPocion(pocionEnemigo);
 

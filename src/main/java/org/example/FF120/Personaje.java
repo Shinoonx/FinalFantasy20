@@ -29,17 +29,22 @@ public abstract class Personaje {
 	public void recibirDaño(int daño) {
 		if (defendiendo) {
 			daño /= 2;
-			defendiendo = false;
+			defendiendo = false; // Dejar de defender después de recibir el daño
 		}
 		vida -= daño;
-		if (vida < 30 && pocion != null) {
+		if (vida < 10 && pocion != null) {
 			usarPocion();
 		}
 	}
 
-	protected void usarPocion() {
-		vida += pocion.getCura();
-		pocion = null;
+	protected boolean usarPocion() {
+		if (pocion != null) {
+			vida += pocion.getCura();
+			pocion = null;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public void defender() {
