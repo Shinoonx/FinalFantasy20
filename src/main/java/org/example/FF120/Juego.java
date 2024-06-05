@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Juego {
 	private Personaje jugador;
 	private Personaje enemigo;
+	private boolean enemigoUsadoPocion = false;
 
 	public Juego(Personaje jugador, Personaje enemigo) {
 		this.jugador = jugador;
@@ -62,7 +63,8 @@ public class Juego {
 				}
 			} else {
 				System.out.println("Turno de " + enemigo.getNombre());
-				int accionEnemigo = rand.nextInt(3) + 1;
+				// Acción aleatoria para el enemigo, sin usar poción más de una vez
+				int accionEnemigo = rand.nextInt(2) + 1; // Solo 1 (Atacar) o 2 (Defender)
 
 				switch (accionEnemigo) {
 					case 1:
@@ -71,12 +73,18 @@ public class Juego {
 					case 2:
 						enemigo.defender();
 						break;
-					case 3:
-						enemigo.usarPocion();
-						break;
+				}
+
+				// Usar poción si la vida es menor a 10 y no la ha usado antes
+				if (enemigo.getVida() < 10 && !enemigoUsadoPocion) {
+					if (enemigo.usarPocion()) {
+						System.out.println(enemigo.getNombre() + " usó una poción y recuperó vida.");
+						enemigoUsadoPocion = true;
+					}
 				}
 			}
 
+			// Imprimir la situación de la salud de ambos personajes
 			System.out.println(jugador.getNombre() + " tiene " + jugador.getVida() + " puntos de vida.");
 			System.out.println(enemigo.getNombre() + " tiene " + enemigo.getVida() + " puntos de vida.");
 
